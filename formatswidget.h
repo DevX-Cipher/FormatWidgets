@@ -75,6 +75,7 @@ public:
     virtual void adjustView();
     void setAdvanced(bool bState);
     virtual void reloadData(bool bSaveSelection);
+    XScanEngine::SCAN_RESULT getScanResult() const;
 
 private slots:
     void on_comboBoxFileType_currentIndexChanged(int nIndex);

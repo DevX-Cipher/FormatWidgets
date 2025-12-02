@@ -170,6 +170,17 @@ void FormatsWidget::setFileName(const QString &sFileName, bool bScan)
     reload();
 }
 
+XScanEngine::SCAN_RESULT FormatsWidget::getScanResult() const
+{
+    DIE_Widget* dieWidget = this->findChild<DIE_Widget*>();
+    if (dieWidget) {
+        return dieWidget->getScanResult();
+    }
+
+    XScanEngine::SCAN_RESULT emptyResult;
+    return emptyResult;
+}
+
 void FormatsWidget::setGlobal(XShortcuts *pShortcuts, XOptions *pXOptions)
 {
     pXOptions->setComboBox(ui->comboBoxScanEngine, XOptions::ID_SCAN_ENGINE);
