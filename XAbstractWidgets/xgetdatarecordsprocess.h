@@ -1,4 +1,4 @@
-/* Copyright (c) 2025 hors<horsicq@gmail.com>
+/* Copyright (c) 2025-2026 hors<horsicq@gmail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -35,9 +35,9 @@ public:
 
 private:
     QIODevice *m_pDevice;
-    XBinary::DATA_RECORDS_OPTIONS g_dataRecordsOptions;
-    QList<XBinary::DATA_RECORD_ROW> *g_pListDataRecordsRows;
-    QList<QString> *g_pListTitles;
+    XBinary::DATA_RECORDS_OPTIONS m_dataRecordsOptions;
+    QList<XBinary::DATA_RECORD_ROW> *m_pListDataRecordsRows;
+    QList<QString> *m_pListTitles;
     XBinary::PDSTRUCT *m_pPdStruct;
 };
 

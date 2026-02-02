@@ -1,4 +1,4 @@
-/* Copyright (c) 2017-2025 hors<horsicq@gmail.com>
+/* Copyright (c) 2017-2026 hors<horsicq@gmail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -62,9 +62,9 @@ private slots:
 private:
     Ui::PEToolsWidget *ui;
     QIODevice *m_pDevice;
-    bool g_bIsImage;
-    XADDR g_nModuleAddress;
-    bool g_bReadonly;
+    bool m_bIsImage;
+    XADDR m_nModuleAddress;
+    bool m_bReadonly;
 };
 
 #endif  // PETOOLSWIDGET_H

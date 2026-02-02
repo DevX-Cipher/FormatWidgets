@@ -1,4 +1,4 @@
-/* Copyright (c) 2019-2025 hors<horsicq@gmail.com>
+/* Copyright (c) 2019-2026 hors<horsicq@gmail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -41,7 +41,7 @@ SearchSignaturesWidget::SearchSignaturesWidget(QWidget *pParent) : XShortcutsWid
     ui->tableViewResult->setToolTip(tr("Result"));
 
     m_pDevice = nullptr;
-    g_bInit = false;
+    m_bInit = false;
 
     ui->toolButtonPatch->setEnabled(false);
 
@@ -56,14 +56,14 @@ SearchSignaturesWidget::~SearchSignaturesWidget()
 void SearchSignaturesWidget::setData(QIODevice *pDevice, OPTIONS options, bool bAuto)
 {
     this->m_pDevice = pDevice;
-    g_bInit = false;
+    m_bInit = false;
 
     XFormats::setFileTypeComboBox(options.fileType, m_pDevice, ui->comboBoxType);
     XFormats::setEndiannessComboBox(ui->comboBoxEndianness, XBinary::ENDIAN_LITTLE);
 
     // ui->tableViewResult->setModel(nullptr);
 
-    g_options = options;
+    m_options = options;
 
     reloadFileType();
 
@@ -74,7 +74,7 @@ void SearchSignaturesWidget::setData(QIODevice *pDevice, OPTIONS options, bool b
 
 SearchSignaturesWidget::OPTIONS SearchSignaturesWidget::getOptions()
 {
-    return g_options;
+    return m_options;
 }
 
 void SearchSignaturesWidget::updateSignaturesPath()
@@ -114,7 +114,7 @@ void SearchSignaturesWidget::reload()
 
 bool SearchSignaturesWidget::getInitStatus()
 {
-    return g_bInit;
+    return m_bInit;
 }
 
 void SearchSignaturesWidget::adjustView()
@@ -150,11 +150,11 @@ void SearchSignaturesWidget::on_tableViewResult_customContextMenuRequested(const
 
     getShortcuts()->_addMenuItem_CopyRow(&listMenuItems, ui->tableViewResult);
 
-    if (g_options.bMenu_Hex) {
+    if (m_options.bMenu_Hex) {
         getShortcuts()->_addMenuItem(&listMenuItems, X_ID_TABLE_FOLLOWIN_HEX, this, SLOT(_hex()), XShortcuts::GROUPID_FOLLOWIN);
     }
 
-    if (g_options.bMenu_Disasm) {
+    if (m_options.bMenu_Disasm) {
         getShortcuts()->_addMenuItem(&listMenuItems, X_ID_TABLE_FOLLOWIN_DISASM, this, SLOT(_disasm()), XShortcuts::GROUPID_FOLLOWIN);
     }
 
@@ -165,10 +165,10 @@ void SearchSignaturesWidget::on_tableViewResult_customContextMenuRequested(const
 
 void SearchSignaturesWidget::_hex()
 {
-    if (g_options.bMenu_Hex) {
+    if (m_options.bMenu_Hex) {
         qint32 nRow = ui->tableViewResult->currentIndex().row();
 
-        if ((nRow != -1) && (g_listRecords.count())) {
+        if ((nRow != -1) && (m_listRecords.count())) {
             QModelIndex index = ui->tableViewResult->selectionModel()->selectedIndexes().at(0);
 
             qint64 nOffset = ui->tableViewResult->model()->data(index, Qt::UserRole + XModel_MSRecord::USERROLE_OFFSET).toLongLong();
@@ -187,10 +187,10 @@ void SearchSignaturesWidget::_hex()
 
 void SearchSignaturesWidget::_disasm()
 {
-    if (g_options.bMenu_Disasm) {
+    if (m_options.bMenu_Disasm) {
         qint32 nRow = ui->tableViewResult->currentIndex().row();
 
-        if ((nRow != -1) && (g_listRecords.count())) {
+        if ((nRow != -1) && (m_listRecords.count())) {
             QModelIndex index = ui->tableViewResult->selectionModel()->selectedIndexes().at(XModel_MSRecord::COLUMN_NUMBER);
 
             qint64 nOffset = ui->tableViewResult->model()->data(index, Qt::UserRole + XModel_MSRecord::USERROLE_OFFSET).toLongLong();
@@ -209,17 +209,17 @@ void SearchSignaturesWidget::search()
 
         MultiSearch::OPTIONS options = {};
 
-        options.bMenu_Hex = g_options.bMenu_Hex;
+        options.bMenu_Hex = m_options.bMenu_Hex;
         options.memoryMap = XFormats::getMemoryMap(fileType, XBinary::MAPMODE_UNKNOWN, m_pDevice);
         options.endian = (XBinary::ENDIAN)(ui->comboBoxEndianness->currentData().toUInt());
-        options.pListSignatureRecords = &g_listSignatureRecords;
+        options.pListSignatureRecords = &m_listSignatureRecords;
 
         QWidget *pParent = XOptions::getMainWidget(this);
 
         MultiSearch multiSearch;
         XDialogProcess dsp(pParent, &multiSearch);
         dsp.setGlobal(getShortcuts(), getGlobalOptions());
-        multiSearch.setSearchData(m_pDevice, &g_listRecords, options, MultiSearch::TYPE_SIGNATURES, dsp.getPdStruct());
+        multiSearch.setSearchData(m_pDevice, &m_listRecords, options, MultiSearch::TYPE_SIGNATURES, dsp.getPdStruct());
         dsp.start();
         dsp.showDialogDelay();
 
@@ -228,15 +228,15 @@ void SearchSignaturesWidget::search()
         // dmp.processModel(&listRecords, &g_pModel, options, MultiSearch::TYPE_SIGNATURES);
         // dmp.showDialogDelay();
 
-        XModel_MSRecord *pModel = new XModel_MSRecord(m_pDevice, options.memoryMap, &g_listRecords, XBinary::VT_SIGNATURE, this);
-        pModel->setSignaturesList(&g_listSignatureRecords);
+        XModel_MSRecord *pModel = new XModel_MSRecord(m_pDevice, options.memoryMap, &m_listRecords, XBinary::VT_SIGNATURE, this);
+        pModel->setSignaturesList(&m_listSignatureRecords);
 
         ui->tableViewResult->setCustomModel(pModel, true);
 
         connect(ui->tableViewResult->selectionModel(), SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this,
                 SLOT(on_tableViewSelection(QItemSelection, QItemSelection)));
 
-        g_bInit = true;
+        m_bInit = true;
     }
 }
 
@@ -244,11 +244,11 @@ void SearchSignaturesWidget::loadSignatures(const QString &sFileName)
 {
     qint32 nNumberOfSignatures = 0;
 
-    g_listSignatureRecords.clear();
+    m_listSignatureRecords.clear();
 
     if (sFileName != "") {
-        g_listSignatureRecords = MultiSearch::loadSignaturesFromFile(sFileName);
-        nNumberOfSignatures = g_listSignatureRecords.count();
+        m_listSignatureRecords = MultiSearch::loadSignaturesFromFile(sFileName);
+        nNumberOfSignatures = m_listSignatureRecords.count();
     }
 
     ui->labelInfo->setText(QString("%1: %2").arg(tr("Signatures"), QString::number(nNumberOfSignatures)));
@@ -307,8 +307,8 @@ void SearchSignaturesWidget::reloadFileType()
 
         XBinary::_MEMORY_MAP memoryMap = {};
 
-        if (g_options.fileType == XBinary::FT_REGION) {
-            memoryMap = XFormats::getMemoryMap(fileType, XBinary::MAPMODE_UNKNOWN, m_pDevice, true, g_options.nStartAddress);
+        if (m_options.fileType == XBinary::FT_REGION) {
+            memoryMap = XFormats::getMemoryMap(fileType, XBinary::MAPMODE_UNKNOWN, m_pDevice, true, m_options.nStartAddress);
         } else {
             memoryMap = XFormats::getMemoryMap(fileType, XBinary::MAPMODE_UNKNOWN, m_pDevice);
         }

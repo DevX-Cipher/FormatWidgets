@@ -1,4 +1,4 @@
-/* Copyright (c) 2017-2025 hors<horsicq@gmail.com>
+/* Copyright (c) 2017-2026 hors<horsicq@gmail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -33,11 +33,11 @@ public:
     virtual void ajustTableView(qint32 nType, QTableView *pTableView);
 
 private:
-    qint32 g_nType;
-    XNE *g_pNE;
-    QStandardItemModel **g_ppModel;
-    qint64 g_nOffset;
-    qint64 g_nSize;
+    qint32 m_nType;
+    XNE *m_pNE;
+    QStandardItemModel **m_ppModel;
+    qint64 m_nOffset;
+    qint64 m_nSize;
 };
 
 #endif  // NEPROCESSDATA_H

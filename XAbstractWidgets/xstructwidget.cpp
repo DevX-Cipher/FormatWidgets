@@ -1,4 +1,4 @@
-/* Copyright (c) 2025 hors<horsicq@gmail.com>
+/* Copyright (c) 2025-2026 hors<horsicq@gmail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -139,7 +139,9 @@ void XStructWidget::reload()
     dataHeadersOptions.nID = 0;
     dataHeadersOptions.bChildren = true;
 
-    m_listDataHeaders = XFormats::getDataHeaders(fileType, m_pDevice, dataHeadersOptions);  // TODO in Progress Dialog
+    XBinary::PDSTRUCT pdStruct = XBinary::createPdStruct();
+
+    m_listDataHeaders = XFormats::getDataHeaders(fileType, m_pDevice, dataHeadersOptions, false, -1, &pdStruct);  // TODO in Progress Dialog
 
     qint32 nNumberOfHeaders = m_listDataHeaders.count();
 
@@ -170,7 +172,7 @@ void XStructWidget::reload()
     }
 
     if (m_options.bGlobalHexEnable) {
-        XHexView::OPTIONS options = {};
+        XBinaryView::OPTIONS options = {};
         // options.memoryMapRegion = _memoryMap;
         ui->widgetGlobalHex->setData(m_pDevice, options, true, m_pInfoDB);
         ui->widgetGlobalHex->setBytesProLine(8);

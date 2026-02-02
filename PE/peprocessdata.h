@@ -1,4 +1,4 @@
-/* Copyright (c) 2017-2025 hors<horsicq@gmail.com>
+/* Copyright (c) 2017-2026 hors<horsicq@gmail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -38,13 +38,13 @@ public:
     virtual void adjustModel(QStandardItemModel *pModel);
 
 private:
-    qint32 g_nType;
-    XPE *g_pPE;
-    QStandardItemModel **g_ppModel;
-    qint32 g_nNumber;
-    qint64 g_nOffset;
-    qint64 g_nSize;
-    QVariant g_varInfo;
+    qint32 m_nType;
+    XPE *m_pPE;
+    QStandardItemModel **m_ppModel;
+    qint32 m_nNumber;
+    qint64 m_nOffset;
+    qint64 m_nSize;
+    QVariant m_varInfo;
 };
 
 #endif  // PEPROCESSDATA_H

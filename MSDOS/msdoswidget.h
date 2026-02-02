@@ -1,4 +1,4 @@
-/* Copyright (c) 2017-2025 hors<horsicq@gmail.com>
+/* Copyright (c) 2017-2026 hors<horsicq@gmail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -72,10 +72,10 @@ private:
 
     Ui::MSDOSWidget *ui;
 
-    XLineEditHEX *g_lineEdit_DOS_HEADER[N_DOS_HEADER::__data_size];
-    XComboBoxEx *g_comboBox[__CB_size];
+    XLineEditHEX *m_lineEdit_DOS_HEADER[N_DOS_HEADER::__data_size];
+    XComboBoxEx *m_comboBox[__CB_size];
 
-    SubDevice *g_subDevice[SMSDOS::__TYPE_size];
+    SubDevice *m_subDevice[SMSDOS::__TYPE_size];
 };
 
 #endif  // MSDOSWIDGET_H

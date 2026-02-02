@@ -1,4 +1,4 @@
-/* Copyright (c) 2019-2025 hors<horsicq@gmail.com>
+/* Copyright (c) 2019-2026 hors<horsicq@gmail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -82,12 +82,12 @@ private slots:
 private:
     Ui::SearchSignaturesWidget *ui;
     QIODevice *m_pDevice;
-    bool g_bInit;
+    bool m_bInit;
     // QStandardItemModel *g_pOldModel;
     // QFutureWatcher<void> g_watcher;
-    QList<XBinary::SIGNATUREDB_RECORD> g_listSignatureRecords;
-    OPTIONS g_options;
-    QVector<XBinary::MS_RECORD> g_listRecords;
+    QList<XBinary::SIGNATUREDB_RECORD> m_listSignatureRecords;
+    OPTIONS m_options;
+    QVector<XBinary::MS_RECORD> m_listRecords;
 };
 
 #endif  // SEARCHSIGNATURESWIDGET_H

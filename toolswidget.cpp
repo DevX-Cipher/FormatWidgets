@@ -1,4 +1,4 @@
-/* Copyright (c) 2019-2025 hors<horsicq@gmail.com>
+/* Copyright (c) 2019-2026 hors<horsicq@gmail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -39,7 +39,7 @@ void ToolsWidget::setData(QIODevice *pDevice, FW_DEF::OPTIONS options, bool bDis
 {
     m_pDevice = pDevice;
 
-    XHexView::OPTIONS hexOptions = {};
+    XBinaryView::OPTIONS hexOptions = {};
     hexOptions.nStartOffset = options.nImageBase;
 
     if (bFollow) {
@@ -49,9 +49,9 @@ void ToolsWidget::setData(QIODevice *pDevice, FW_DEF::OPTIONS options, bool bDis
     }
 
     if (options.bOffset) {
-        hexOptions.addressMode = XDeviceTableView::LOCMODE_OFFSET;
+        hexOptions.addressMode = XBinaryView::LOCMODE_OFFSET;
     } else {
-        hexOptions.addressMode = XDeviceTableView::LOCMODE_ADDRESS;
+        hexOptions.addressMode = XBinaryView::LOCMODE_ADDRESS;
     }
 
     // hexOptions.bIsOffsetTitle = options.bOffset;
@@ -86,7 +86,7 @@ void ToolsWidget::setData(QIODevice *pDevice, FW_DEF::OPTIONS options, bool bDis
 
 void ToolsWidget::resetWidget()
 {
-    ui->widgetHex->setDevice(nullptr, 0, -1);
+    ui->widgetHex->reset();
     ui->widgetHex->setXInfoDB(nullptr);
 }
 

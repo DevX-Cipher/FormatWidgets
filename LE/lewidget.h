@@ -1,4 +1,4 @@
-/* Copyright (c) 2019-2025 hors<horsicq@gmail.com>
+/* Copyright (c) 2019-2026 hors<horsicq@gmail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -85,13 +85,13 @@ private:
 
     Ui::LEWidget *ui;
 
-    XLineEditHEX *g_lineEdit_DOS_HEADER[N_LE_DOS_HEADER::__data_size];
-    XLineEditHEX *g_lineEdit_VXD_HEADER[N_VXD_HEADER::__data_size];
-    XComboBoxEx *g_comboBox[__CB_size];
+    XLineEditHEX *m_lineEdit_DOS_HEADER[N_LE_DOS_HEADER::__data_size];
+    XLineEditHEX *m_lineEdit_VXD_HEADER[N_VXD_HEADER::__data_size];
+    XComboBoxEx *m_comboBox[__CB_size];
 
-    InvWidget *g_invWidget[__INV_size];
-    SubDevice *g_subDevice[SLE::__TYPE_size];
-    QStandardItemModel *g_tvModel[SLE::__TYPE_size];
+    InvWidget *m_invWidget[__INV_size];
+    SubDevice *m_subDevice[SLE::__TYPE_size];
+    QStandardItemModel *m_tvModel[SLE::__TYPE_size];
 };
 
 #endif  // LEWIDGET_H

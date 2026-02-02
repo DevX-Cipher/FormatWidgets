@@ -1,4 +1,4 @@
-/* Copyright (c) 2025 hors<horsicq@gmail.com>
+/* Copyright (c) 2025-2026 hors<horsicq@gmail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -45,9 +45,9 @@ private slots:
 
 private:
     Ui::XGenericTableWidget *ui;
-    qint64 g_nDataSize;
-    QList<XBinary::DATA_RECORD_ROW> g_listDataRecordsRows;
-    QList<QString> g_listTitles;
+    qint64 m_nDataSize;
+    QList<XBinary::DATA_RECORD_ROW> m_listDataRecordsRows;
+    QList<QString> m_listTitles;
 };
 
 #endif  // XGENERICTABLEWIDGET_H

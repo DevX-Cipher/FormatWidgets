@@ -1,4 +1,4 @@
-/* Copyright (c) 2017-2025 hors<horsicq@gmail.com>
+/* Copyright (c) 2017-2026 hors<horsicq@gmail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -56,13 +56,13 @@ private slots:
 
 private:
     Ui::PESectionHeaderWidget *ui;
-    XLineEditHEX **g_ppLinedEdit;
-    qint32 g_nLineEditSize;
-    XComboBoxEx **g_ppComboBox;
-    qint32 g_nComboBoxSize;
-    InvWidget **g_ppInvWidget;
-    qint32 g_nInvWidgetSize;
-    SubDevice *g_pSubDevice;
+    XLineEditHEX **m_ppLinedEdit;
+    qint32 m_nLineEditSize;
+    XComboBoxEx **m_ppComboBox;
+    qint32 m_nComboBoxSize;
+    InvWidget **m_ppInvWidget;
+    qint32 m_nInvWidgetSize;
+    SubDevice *m_pSubDevice;
 };
 
 #endif  // PESECTIONHEADERWIDGET_H
